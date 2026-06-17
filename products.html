@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ForecastMart Products</title>
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <style>
+    /* Custom button sizing adjustments if needed */
+  </style>
+</head>
+<body>
+
+  <!-- Ambient background glow -->
+  <div class="ambient-bg">
+    <div class="ambient-orb ambient-orb-1"></div>
+    <div class="ambient-orb ambient-orb-2"></div>
+  </div>
+
+  <div class="layout">
+    
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="logo">
+        <span>🤖</span> ForecastMart
+      </div>
+      <div class="menu">
+        <a href="dashboard.html">📊 Dashboard</a>
+        <a href="products.html" class="active">📦 Products</a>
+        <a href="vendors.html">👨‍💼 Vendors</a>
+        <a href="analytics.html">📈 Analytics</a>
+        <a href="settings.html">⚙️ Settings</a>
+        <a href="index.html" id="logoutBtn">🚪 Logout</a>
+      </div>
+    </div>
+
+    <!-- MAIN PANEL -->
+    <div class="main">
+      
+      <!-- TOPBAR -->
+      <div class="topbar">
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+          <h1>Products</h1>
+        </div>
+        
+        <div class="right-side">
+          <div class="search-wrapper">
+            <input type="text" placeholder="Search products..." id="search">
+          </div>
+          <button class="btn btn-primary" id="addProductBtn">+ Add Product</button>
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-grid">
+        <div class="glass-card">
+          <h3>Total Products</h3>
+          <h2>248</h2>
+          <div class="trend-indicator">+18 This Week</div>
+        </div>
+
+        <div class="glass-card">
+          <h3>Top Category</h3>
+          <h2>Electronics</h2>
+          <div class="trend-indicator">Most Trending</div>
+        </div>
+
+        <div class="glass-card">
+          <h3>Active Vendors</h3>
+          <h2>120+</h2>
+          <div class="trend-indicator">Marketplace Live</div>
+        </div>
+      </div>
+
+      <!-- PRODUCTS GRID -->
+      <div class="products-grid" id="products">
+        
+        <!-- PRODUCT 1 -->
+        <div class="product-card">
+          <div>
+            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=600&auto=format&fit=crop" alt="iPhone Pro Max">
+            <div class="category-pill" style="background: rgba(59, 130, 246, 0.12); border-color: rgba(59, 130, 246, 0.2); color: #bfdbfe;">Smartphones</div>
+            <h3>iPhone Pro Max</h3>
+            <p class="desc">Premium Apple smartphone with AI demand forecasting and high marketplace sales.</p>
+          </div>
+          <div class="product-footer">
+            <div class="price">$1299</div>
+            <button class="btn btn-secondary buy-btn" onclick="viewAnalytics(0)" style="padding: 10px 20px;">View</button>
+          </div>
+        </div>
+
+        <!-- PRODUCT 2 -->
+        <div class="product-card">
+          <div>
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop" alt="Premium Wireless Headset">
+            <div class="category-pill" style="background: rgba(168, 85, 247, 0.12); border-color: rgba(168, 85, 247, 0.2); color: #e9d5ff;">Audio</div>
+            <h3>Premium Wireless Headset</h3>
+            <p class="desc">Noise cancellation headphones with trending sales analytics and high customer ratings.</p>
+          </div>
+          <div class="product-footer">
+            <div class="price">$299</div>
+            <button class="btn btn-secondary buy-btn" onclick="viewAnalytics(1)" style="padding: 10px 20px;">View</button>
+          </div>
+        </div>
+
+        <!-- PRODUCT 3 -->
+        <div class="product-card">
+          <div>
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop" alt="Elite Smart Watch">
+            <div class="category-pill" style="background: rgba(59, 130, 246, 0.12); border-color: rgba(59, 130, 246, 0.2); color: #bfdbfe;">Wearables</div>
+            <h3>Elite Smart Watch</h3>
+            <p class="desc">AI predicted top-selling smartwatch category with real-time vendor demand tracking.</p>
+          </div>
+          <div class="product-footer">
+            <div class="price">$499</div>
+            <button class="btn btn-secondary buy-btn" onclick="viewAnalytics(2)" style="padding: 10px 20px;">View</button>
+          </div>
+        </div>
+
+        <!-- PRODUCT 4 -->
+        <div class="product-card">
+          <div>
+            <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?q=80&w=600&auto=format&fit=crop" alt="4K Ultra HD Smart TV">
+            <div class="category-pill" style="background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.2); color: #a7f3d0;">TVs</div>
+            <h3>4K Ultra HD Smart TV</h3>
+            <p class="desc">Premium smart television integrated with live seasonal regression analysis models.</p>
+          </div>
+          <div class="product-footer">
+            <div class="price">$899</div>
+            <button class="btn btn-secondary buy-btn" onclick="viewAnalytics(3)" style="padding: 10px 20px;">View</button>
+          </div>
+        </div>
+
+        <!-- PRODUCT 5 -->
+        <div class="product-card">
+          <div>
+            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600&auto=format&fit=crop" alt="AI & Deep Learning Guide">
+            <div class="category-pill" style="background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.2); color: #fef3c7;">Books</div>
+            <h3>AI & Deep Learning Guide</h3>
+            <p class="desc">Educational textbook for engineering students showing continuous marketplace growth trends.</p>
+          </div>
+          <div class="product-footer">
+            <div class="price">$79</div>
+            <button class="btn btn-secondary buy-btn" onclick="viewAnalytics(4)" style="padding: 10px 20px;">View</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    // Mobile menu drawer toggle
+    const sidebar = document.querySelector(".sidebar");
+    document.getElementById("mobileMenuToggle").addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+    });
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener("click", (e) => {
+      if (window.innerWidth <= 900) {
+        if (!sidebar.contains(e.target) && !document.getElementById("mobileMenuToggle").contains(e.target)) {
+          sidebar.classList.remove("open");
+        }
+      }
+    });
+
+    /* SEARCH FILTER */
+    document.getElementById("search").addEventListener("input", function() {
+      const value = this.value.toLowerCase();
+      document.querySelectorAll(".product-card").forEach(product => {
+        const text = product.innerText.toLowerCase();
+        product.style.display = text.includes(value) ? "flex" : "none";
+      });
+    });
+
+    function viewAnalytics(index) {
+      window.location.href = `analytics.html?product=${index}`;
+    }
+
+    document.getElementById("addProductBtn").addEventListener("click", () => {
+      alert("Add Product Feature Coming Soon");
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("token");
+    });
+  </script>
+</body>
+</html>

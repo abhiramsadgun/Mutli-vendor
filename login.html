@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - ForecastMart</title>
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .marketing-chart {
+      margin-top: 40px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      padding: 25px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .marketing-chart h3 {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .chart-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      height: 120px;
+    }
+    
+    .chart-bar {
+      flex: 1;
+      border-radius: 6px 6px 0 0;
+      background: var(--grad-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient background glow -->
+  <div class="ambient-bg">
+    <div class="ambient-orb ambient-orb-1"></div>
+    <div class="ambient-orb ambient-orb-2"></div>
+  </div>
+
+  <div class="auth-container">
+    
+    <!-- LEFT MARKETING BLOCK -->
+    <div class="auth-marketing">
+      <div>
+        <div class="logo">
+          <span>🤖</span> ForecastMart
+        </div>
+        <h1>Welcome Back</h1>
+        <p>
+          Login to access your AI-powered marketplace dashboard. Manage products, vendors, 
+          track real-time sales trends, and compute ML demand forecasts.
+        </p>
+      </div>
+      
+      <div class="marketing-chart">
+        <h3>AI Sales Forecast</h3>
+        <div class="chart-bars">
+          <div class="chart-bar" style="height: 35%;"></div>
+          <div class="chart-bar" style="height: 60%;"></div>
+          <div class="chart-bar" style="height: 85%;"></div>
+          <div class="chart-bar" style="height: 55%;"></div>
+          <div class="chart-bar" style="height: 100%;"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- RIGHT FORM PANEL -->
+    <div class="auth-panel">
+      <h2>Login</h2>
+      <p class="subtitle">Access your ForecastMart admin panel</p>
+      
+      <!-- Input Groups -->
+      <div class="input-grp">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" class="input-field" placeholder="name@company.com" required>
+      </div>
+      
+      <div class="input-grp">
+        <label for="password">Password</label>
+        <input type="password" id="password" class="input-field" placeholder="••••••••" required>
+      </div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="custom-checkbox"></span>
+          Remember Me
+        </label>
+        
+        <a href="#" style="color: var(--accent-indigo); text-decoration: none; font-size: 14px; font-weight: 700;">
+          Forgot Password?
+        </a>
+      </div>
+      
+      <button class="btn btn-primary" onclick="login()" style="width: 100%;">
+        Login to Dashboard
+      </button>
+      
+      <div class="social-divider">OR</div>
+      
+      <div class="social-btns">
+        <button class="btn-social">Google</button>
+        <button class="btn-social">GitHub</button>
+      </div>
+      
+      <div class="auth-footer">
+        Don't have an account? <a href="register.html">Create Account</a>
+      </div>
+    </div>
+    
+  </div>
+
+  <script>
+    async function login(){
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      
+      if(!email || !password){
+        alert("Please fill all fields");
+        return;
+      }
+      
+      try {
+        const res = await fetch("http://localhost:5000/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email, password })
+        });
+        
+        const data = await res.json();
+        
+        if(res.ok){
+          localStorage.setItem("token", data.token);
+          window.location.href = "dashboard.html";
+        } else {
+          alert(data.message);
+        }
+      } catch(err) {
+        console.warn("Backend server offline. Entering Offline Demo Mode...", err);
+        alert("Backend server is offline. Logging in with Demo Mode so you can preview the pages.");
+        localStorage.setItem("token", "demo-token-12345");
+        window.location.href = "dashboard.html";
+      }
+    }
+  </script>
+</body>
+</html>

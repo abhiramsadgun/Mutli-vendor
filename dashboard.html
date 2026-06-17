@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ForecastMart Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <style>
+    .content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 25px;
+      margin-bottom: 35px;
+    }
+    
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    
+    .chart-header h2 {
+      font-size: 22px;
+      font-weight: 700;
+    }
+    
+    .chart-header span {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    
+    .activity-feed h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    
+    .activity-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border-glow);
+    }
+    
+    .activity-row:last-child {
+      border-bottom: none;
+    }
+    
+    .activity-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    
+    .activity-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: var(--grad-primary);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+    }
+    
+    .activity-info h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+    
+    .activity-info p {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    .activity-status {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-emerald);
+    }
+    .products-section-title {
+      margin: 45px 0 25px 0;
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 800;
+    }
+    
+    @media (max-width: 1100px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient-bg">
+    <div class="ambient-orb ambient-orb-1"></div>
+    <div class="ambient-orb ambient-orb-2"></div>
+  </div>
+
+  <div class="layout">
+    
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="logo">
+        <span>🤖</span> ForecastMart
+      </div>
+      <div class="menu">
+        <a href="dashboard.html" class="active">📊 Dashboard</a>
+        <a href="products.html">📦 Products</a>
+        <a href="vendors.html">👨‍💼 Vendors</a>
+        <a href="analytics.html">📈 Analytics</a>
+        <a href="settings.html">⚙️ Settings</a>
+        <a href="index.html" id="logoutBtn">🚪 Logout</a>
+      </div>
+    </div>
+
+    <!-- MAIN PANEL -->
+    <div class="main">
+      <!-- TOPBAR -->
+      <div class="topbar">
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+          <h1>Dashboard Overview</h1>
+        </div>
+        <div class="right-side">
+          <div class="search-wrapper">
+            <input type="text" placeholder="Search product patterns..." id="searchBox">
+          </div>
+          <div class="profile" id="profileBtn">M</div>
+        </div>
+      </div>
+
+      <!-- STATS CARDS -->
+      <div class="stats-grid">
+        <div class="glass-card" style="border-top: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <h3>Total Users</h3>
+            <span class="badge badge-success" style="font-size: 9px; padding: 3px 8px; border-radius: 4px; background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.2); color: var(--accent-emerald);">Live Sync</span>
+          </div>
+          <h1 id="users" class="gradient-text" style="font-size: 48px; margin: 10px 0; font-weight: 800;">0</h1>
+          <div class="trend-indicator" style="font-size: 12px; color: var(--text-secondary);">
+            <span style="color: var(--accent-emerald); font-weight: bold; margin-right: 4px;">●</span> Connected to MongoDB
+          </div>
+        </div>
+
+        <div class="glass-card" style="border-top: 4px solid var(--accent-purple);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <h3>Total Sessions</h3>
+            <span class="badge badge-success" style="font-size: 9px; padding: 3px 8px; border-radius: 4px; background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.2); color: var(--accent-emerald);">Live Sync</span>
+          </div>
+          <h1 id="logins" class="gradient-text" style="font-size: 48px; margin: 10px 0; font-weight: 800;">0</h1>
+          <div class="trend-indicator" style="font-size: 12px; color: var(--text-secondary);">
+            <span style="color: var(--accent-emerald); font-weight: bold; margin-right: 4px;">●</span> Active Login Sessions
+          </div>
+        </div>
+
+        <div class="glass-card" style="border-top: 4px solid var(--accent-emerald);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <h3>Latest Activity</h3>
+            <span class="badge badge-success" style="font-size: 9px; padding: 3px 8px; border-radius: 4px; background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.2); color: var(--accent-emerald);">Live Sync</span>
+          </div>
+          <h1 id="latest" style="font-size: 24px; padding: 18px 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 0; font-weight: 800;">-</h1>
+          <div class="trend-indicator" style="font-size: 12px; color: var(--text-secondary);">
+            <span style="color: var(--accent-emerald); font-weight: bold; margin-right: 4px;">●</span> Most Recent Login
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN GRID -->
+      <div class="content-grid">
+        <!-- CHART CARD -->
+        <div class="glass-card">
+          <div class="chart-header">
+            <h2>Marketplace Total Demand Trends</h2>
+            <span class="badge badge-info">AI Regression Mode</span>
+          </div>
+          <!-- Apex Chart Rendering -->
+          <div id="dashboardTrendChart" style="height: 300px;"></div>
+        </div>
+
+        <!-- SYSTEM ACTIONS FEED -->
+        <div class="glass-card activity-feed">
+          <h2>Live System Actions</h2>
+          
+          <div class="activity-row">
+            <div class="activity-left">
+              <div class="activity-icon">🔑</div>
+              <div class="activity-info">
+                <h4>New Session Hooked</h4>
+                <p>Express server ping success</p>
+              </div>
+            </div>
+            <div class="activity-status">Active</div>
+          </div>
+
+          <div class="activity-row">
+            <div class="activity-left">
+              <div class="activity-icon">📦</div>
+              <div class="activity-info">
+                <h4>Data Seeding System</h4>
+                <p>MERN default datasets ready</p>
+              </div>
+            </div>
+            <div class="activity-status">Success</div>
+          </div>
+
+          <div class="activity-row">
+            <div class="activity-left">
+              <div class="activity-icon">🤖</div>
+              <div class="activity-info">
+                <h4>FastAPI Connection</h4>
+                <p>AI pipeline fully mounted</p>
+              </div>
+            </div>
+            <div class="activity-status" style="color: var(--accent-purple);">Connected</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTS SECTION -->
+      <h2 class="products-section-title">Top Performing Market Models</h2>
+      <div class="products-grid" id="productsContainer">
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=600&auto=format&fit=crop" alt="iPhone Pro Max">
+          <h3>iPhone Pro Max</h3>
+          <p>Premium Apple smartphone backed by live linear-regression sales prediction models.</p>
+        </div>
+
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop" alt="Premium Wireless Headset">
+          <h3>Premium Wireless Headset</h3>
+          <p>Trending audio device with regression forecast analytics mapped from real sales volumes.</p>
+        </div>
+
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop" alt="Elite Smart Watch">
+          <h3>Elite Smart Watch</h3>
+          <p>High-accuracy wearable forecast patterns predicting solid market growth parameters.</p>
+        </div>
+
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?q=80&w=600&auto=format&fit=crop" alt="4K Ultra HD Smart TV">
+          <h3>4K Ultra HD Smart TV</h3>
+          <p>Premium television systems mapping seasonal regression points across marketplace vendor data.</p>
+        </div>
+
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=600&auto=format&fit=crop" alt="AI & Deep Learning Guide">
+          <h3>AI & Deep Learning Guide</h3>
+          <p>Educational textbook showing continuous growth trends in scientific publication sectors.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Token validation
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    // Mobile menu drawer toggle
+    const sidebar = document.querySelector(".sidebar");
+    document.getElementById("mobileMenuToggle").addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+    });
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener("click", (e) => {
+      if (window.innerWidth <= 900) {
+        if (!sidebar.contains(e.target) && !document.getElementById("mobileMenuToggle").contains(e.target)) {
+          sidebar.classList.remove("open");
+        }
+      }
+    });
+
+    async function loadStats() {
+      try {
+        const res = await fetch("http://localhost:5000/api/dashboard/stats");
+        const data = await res.json();
+        document.getElementById("users").innerText = data.totalUsers || 0;
+        document.getElementById("logins").innerText = data.totalLogins || 0;
+        document.getElementById("latest").innerText = data.latestUsers[0]?.name || "No Users";
+      } catch (err) {
+        console.warn("Using offline mock stats:", err);
+        document.getElementById("users").innerText = "124";
+        document.getElementById("logins").innerText = "840";
+        document.getElementById("latest").innerText = "Demo Admin";
+      }
+    }
+
+    async function loadMarketplaceChart() {
+      try {
+        const res = await fetch("http://localhost:5000/api/forecast/stats");
+        const json = await res.json();
+        if (json.success && json.data.length > 0) {
+          renderDashboardChart(json.data);
+        } else {
+          loadMockDashboardChart();
+        }
+      } catch (err) {
+        console.warn("Error loading forecast data for dashboard chart, using fallback mock data:", err);
+        loadMockDashboardChart();
+      }
+    }
+
+    function loadMockDashboardChart() {
+      const mockProducts = [
+        {
+          productName: "iPhone Pro",
+          historical: [[1, 120], [2, 140], [3, 155], [4, 180], [5, 210], [6, 235]],
+          forecast: [[7, 260], [8, 285], [9, 310], [10, 335], [11, 360], [12, 385]]
+        },
+        {
+          productName: "Wireless Headphones",
+          historical: [[1, 80], [2, 95], [3, 110], [4, 105], [5, 130], [6, 125]],
+          forecast: [[7, 145], [8, 152], [9, 164], [10, 171], [11, 183], [12, 190]]
+        },
+        {
+          productName: "Smart Watch",
+          historical: [[1, 50], [2, 65], [3, 85], [4, 110], [5, 135], [6, 160]],
+          forecast: [[7, 185], [8, 210], [9, 235], [10, 260], [11, 285], [12, 310]]
+        }
+      ];
+      renderDashboardChart(mockProducts);
+    }
+
+    function renderDashboardChart(products) {
+      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      const aggregateHist = {};
+      const aggregateForecast = {};
+      const allMonths = new Set();
+
+      products.forEach(prod => {
+        prod.historical.forEach(pt => {
+          const monthVal = pt[0];
+          aggregateHist[monthVal] = (aggregateHist[monthVal] || 0) + pt[1];
+          allMonths.add(monthVal);
+        });
+        
+        const lastHistMonth = prod.historical[prod.historical.length - 1][0];
+        const lastHistVal = prod.historical[prod.historical.length - 1][1];
+        aggregateForecast[lastHistMonth] = (aggregateForecast[lastHistMonth] || 0) + lastHistVal;
+
+        prod.forecast.forEach(pt => {
+          const monthVal = pt[0];
+          aggregateForecast[monthVal] = (aggregateForecast[monthVal] || 0) + pt[1];
+          allMonths.add(monthVal);
+        });
+      });
+
+      const sortedMonths = Array.from(allMonths).sort((a, b) => a - b);
+      const categories = sortedMonths.map(m => monthNames[(m - 1) % 12]);
+      const historySeries = [];
+      const forecastSeries = [];
+
+      sortedMonths.forEach(m => {
+        if (aggregateHist[m] !== undefined) {
+          historySeries.push(aggregateHist[m]);
+          if (aggregateHist[m + 1] === undefined) {
+            forecastSeries.push(aggregateHist[m]);
+          } else {
+            forecastSeries.push(null);
+          }
+        } else {
+          historySeries.push(null);
+          forecastSeries.push(aggregateForecast[m] || null);
+        }
+      });
+
+      const chartOptions = {
+        series: [
+          {
+            name: 'Total Historical Demand',
+            data: historySeries
+          },
+          {
+            name: 'Total AI Predicted Demand',
+            data: forecastSeries
+          }
+        ],
+        chart: {
+          type: 'area',
+          height: 300,
+          fontFamily: 'Plus Jakarta Sans',
+          toolbar: { show: false },
+          background: 'transparent'
+        },
+        colors: ['#3b82f6', '#8b5cf6'],
+        dataLabels: { enabled: false },
+        stroke: {
+          curve: 'smooth',
+          width: [4, 4],
+          dashArray: [0, 6]
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.35,
+            opacityTo: 0.05,
+            stops: [0, 90, 100]
+          }
+        },
+        grid: {
+          borderColor: 'rgba(255, 255, 255, 0.05)',
+          strokeDashArray: 4
+        },
+        xaxis: {
+          categories: categories,
+          labels: {
+            style: { colors: '#94a3b8', fontSize: '11px' }
+          },
+          axisBorder: { show: false },
+          axisTicks: { show: false }
+        },
+        yaxis: {
+          labels: {
+            style: { colors: '#94a3b8', fontSize: '11px' }
+          }
+        },
+        theme: { mode: 'dark' },
+        tooltip: {
+          shared: true,
+          theme: 'dark',
+          y: {
+            formatter: function (val) {
+              return val ? Math.round(val) + " Units" : "";
+            }
+          }
+        }
+      };
+
+      const chart = new ApexCharts(document.querySelector("#dashboardTrendChart"), chartOptions);
+      chart.render();
+    }
+
+    document.getElementById("profileBtn").addEventListener("click", () => {
+      alert("Profile Dashboard Coming Soon!");
+    });
+
+    document.getElementById("searchBox").addEventListener("input", function() {
+      const query = this.value.toLowerCase();
+      document.querySelectorAll(".product-card").forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(query) ? "block" : "none";
+      });
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("token");
+    });
+
+    loadStats();
+    loadMarketplaceChart();
+  </script>
+</body>
+</html>

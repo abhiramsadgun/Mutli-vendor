@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ForecastMart Vendors</title>
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <style>
+    /* Vendors-specific layouts */
+    .vendors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+    
+    .vendor-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      padding: 25px;
+      transition: var(--transition-smooth);
+      backdrop-filter: blur(15px);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    
+    .vendor-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--border-glow-hover);
+      box-shadow: var(--shadow-md), var(--shadow-glow);
+    }
+    
+    .vendor-top {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+    
+    .vendor-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: var(--radius-md);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      font-weight: 800;
+      color: white;
+      background: var(--grad-primary);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+    }
+    
+    .vendor-info h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    
+    .vendor-info p {
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+    
+    .vendor-card .desc {
+      color: var(--text-secondary);
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin-bottom: 22px;
+      flex-grow: 1;
+    }
+    
+    .vendor-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+    
+    .vendor-footer .revenue-tag {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--accent-emerald);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient background glow -->
+  <div class="ambient-bg">
+    <div class="ambient-orb ambient-orb-1"></div>
+    <div class="ambient-orb ambient-orb-2"></div>
+  </div>
+
+  <div class="layout">
+    
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="logo">
+        <span>🤖</span> ForecastMart
+      </div>
+      <div class="menu">
+        <a href="dashboard.html">📊 Dashboard</a>
+        <a href="products.html">📦 Products</a>
+        <a href="vendors.html" class="active">👨‍💼 Vendors</a>
+        <a href="analytics.html">📈 Analytics</a>
+        <a href="settings.html">⚙️ Settings</a>
+        <a href="index.html" id="logoutBtn">🚪 Logout</a>
+      </div>
+    </div>
+
+    <!-- MAIN PANEL -->
+    <div class="main">
+      
+      <!-- TOPBAR -->
+      <div class="topbar">
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+          <h1>Vendors</h1>
+        </div>
+        
+        <div class="right-side">
+          <div class="search-wrapper">
+            <input type="text" placeholder="Search vendors..." id="search">
+          </div>
+          <button class="btn btn-primary" id="addVendorBtn">+ Add Vendor</button>
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-grid">
+        <div class="glass-card">
+          <h3>Total Vendors</h3>
+          <h2>120+</h2>
+          <div class="trend-indicator">+14 This Month</div>
+        </div>
+
+        <div class="glass-card">
+          <h3>Top Category</h3>
+          <h2>Electronics</h2>
+          <div class="trend-indicator">Highest Revenue</div>
+        </div>
+
+        <div class="glass-card">
+          <h3>Marketplace Revenue</h3>
+          <h2>$84K</h2>
+          <div class="trend-indicator">Live Analytics</div>
+        </div>
+      </div>
+
+      <!-- VENDORS GRID -->
+      <div class="vendors-grid" id="vendors">
+        
+        <!-- VENDOR 1 -->
+        <div class="vendor-card">
+          <div>
+            <div class="vendor-top">
+              <div class="vendor-avatar">A</div>
+              <div class="vendor-info">
+                <h3>Vendor Alpha</h3>
+                <p>Electronics & Gadgets</p>
+              </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop" style="width: 100%; height: 140px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05);" alt="Electronics Product Showcase">
+            <div class="badge badge-success" style="margin-bottom: 18px;">Active Vendor</div>
+            <p class="desc">Leading electronics marketplace vendor with AI optimized inventory and high customer engagement.</p>
+          </div>
+          <div class="vendor-footer">
+            <div class="revenue-tag">$24K Revenue</div>
+            <button class="btn btn-secondary view-btn" style="padding: 10px 20px;">View</button>
+          </div>
+        </div>
+
+        <!-- VENDOR 2 -->
+        <div class="vendor-card">
+          <div>
+            <div class="vendor-top">
+              <div class="vendor-avatar" style="background: var(--grad-accent);">B</div>
+              <div class="vendor-info">
+                <h3>Vendor Beta</h3>
+                <p>Fashion & Apparel</p>
+              </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=600&auto=format&fit=crop" style="width: 100%; height: 140px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05);" alt="Fashion Product Showcase">
+            <div class="badge badge-info" style="margin-bottom: 18px;">Top Seller</div>
+            <p class="desc">Trending fashion marketplace partner with high monthly sales and strong customer retention.</p>
+          </div>
+          <div class="vendor-footer">
+            <div class="revenue-tag">$18K Revenue</div>
+            <button class="btn btn-secondary view-btn" style="padding: 10px 20px;">View</button>
+          </div>
+        </div>
+
+        <!-- VENDOR 3 -->
+        <div class="vendor-card">
+          <div>
+            <div class="vendor-top">
+              <div class="vendor-avatar" style="background: var(--grad-emerald);">G</div>
+              <div class="vendor-info">
+                <h3>Vendor Gamma</h3>
+                <p>Smart Wearables</p>
+              </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1579586337278-3befd40fd17a?q=80&w=600&auto=format&fit=crop" style="width: 100%; height: 140px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05);" alt="Wearables Product Showcase">
+            <div class="badge badge-success" style="margin-bottom: 18px;">AI Forecast Ready</div>
+            <p class="desc">Smart wearable marketplace vendor using AI demand forecasting and automated inventory systems.</p>
+          </div>
+          <div class="vendor-footer">
+            <div class="revenue-tag">$32K Revenue</div>
+            <button class="btn btn-secondary view-btn" style="padding: 10px 20px;">View</button>
+          </div>
+        </div>
+
+        <!-- VENDOR 4 -->
+        <div class="vendor-card">
+          <div>
+            <div class="vendor-top">
+              <div class="vendor-avatar" style="background: var(--grad-orange);">D</div>
+              <div class="vendor-info">
+                <h3>Vendor Delta</h3>
+                <p>Home Appliances</p>
+              </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=600&auto=format&fit=crop" style="width: 100%; height: 140px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05);" alt="Appliances Product Showcase">
+            <div class="badge badge-pending" style="margin-bottom: 18px;">Verified Vendor</div>
+            <p class="desc">Premium home appliance seller with strong marketplace growth and AI powered analytics.</p>
+          </div>
+          <div class="vendor-footer">
+            <div class="revenue-tag">$21K Revenue</div>
+            <button class="btn btn-secondary view-btn" style="padding: 10px 20px;">View</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    // Mobile menu drawer toggle
+    const sidebar = document.querySelector(".sidebar");
+    document.getElementById("mobileMenuToggle").addEventListener("click", () => {
+      sidebar.classList.toggle("open");
+    });
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener("click", (e) => {
+      if (window.innerWidth <= 900) {
+        if (!sidebar.contains(e.target) && !document.getElementById("mobileMenuToggle").contains(e.target)) {
+          sidebar.classList.remove("open");
+        }
+      }
+    });
+
+    /* SEARCH FILTER */
+    document.getElementById("search").addEventListener("input", function() {
+      const value = this.value.toLowerCase();
+      document.querySelectorAll(".vendor-card").forEach(vendor => {
+        const text = vendor.innerText.toLowerCase();
+        vendor.style.display = text.includes(value) ? "flex" : "none";
+      });
+    });
+
+    /* ACTION LISTENERS */
+    document.querySelectorAll(".view-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        alert("Vendor Details Coming Soon");
+      });
+    });
+
+    document.getElementById("addVendorBtn").addEventListener("click", () => {
+      alert("Add Vendor Feature Coming Soon");
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("token");
+    });
+  </script>
+</body>
+</html>

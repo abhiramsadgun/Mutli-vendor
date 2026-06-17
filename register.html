@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - ForecastMart</title>
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .marketing-stats {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient background glow -->
+  <div class="ambient-bg">
+    <div class="ambient-orb ambient-orb-1"></div>
+    <div class="ambient-orb ambient-orb-2"></div>
+  </div>
+
+  <div class="auth-container" style="height: 700px;">
+    
+    <!-- LEFT MARKETING BLOCK -->
+    <div class="auth-marketing">
+      <div>
+        <div class="logo">
+          <span>🤖</span> ForecastMart
+        </div>
+        <h1>Join the Future of Smart Commerce</h1>
+        <p>
+          Create your account and unlock AI-powered forecasting, automated inventory thresholds, 
+          vendor management tools, and marketplace insights.
+        </p>
+      </div>
+      
+      <div class="marketing-stats">
+        <div class="glass-card" style="padding: 20px;">
+          <h3 style="font-size: 11px;">Vendors Active</h3>
+          <h2 style="font-size: 28px;" class="gradient-text">12K+</h2>
+        </div>
+        <div class="glass-card" style="padding: 20px;">
+          <h3 style="font-size: 11px;">R² Accuracy</h3>
+          <h2 style="font-size: 28px;">94%</h2>
+        </div>
+      </div>
+    </div>
+    
+    <!-- RIGHT FORM PANEL -->
+    <div class="auth-panel" style="justify-content: flex-start; padding-top: 40px;">
+      <h2>Create Account</h2>
+      <p class="subtitle">Start managing your smart marketplace today</p>
+      
+      <!-- Input Groups -->
+      <div class="input-grp" style="margin-bottom: 18px;">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" class="input-field" placeholder="John Doe" required>
+      </div>
+      
+      <div class="input-grp" style="margin-bottom: 18px;">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" class="input-field" placeholder="name@company.com" required>
+      </div>
+      
+      <div class="input-grp" style="margin-bottom: 18px;">
+        <label for="password">Password</label>
+        <input type="password" id="password" class="input-field" placeholder="••••••••" required>
+        <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">
+          Use 8 or more characters with a mix of letters & numbers
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 22px;">
+        <label class="checkbox-container">
+          <input type="checkbox" required>
+          <span class="custom-checkbox"></span>
+          <span>I agree to the <a href="#" style="color: var(--accent-indigo); text-decoration: none; font-weight: 700;">Terms</a> & <a href="#" style="color: var(--accent-indigo); text-decoration: none; font-weight: 700;">Privacy Policy</a></span>
+        </label>
+      </div>
+      
+      <button class="btn btn-primary" onclick="registerUser()" style="width: 100%;">
+        Create Account
+      </button>
+      
+      <div class="social-divider">OR</div>
+      
+      <div class="social-btns">
+        <button class="btn-social">Google</button>
+        <button class="btn-social">GitHub</button>
+      </div>
+      
+      <div class="auth-footer" style="margin-top: 20px;">
+        Already have an account? <a href="login.html">Login</a>
+      </div>
+    </div>
+    
+  </div>
+
+  <script>
+    async function registerUser(){
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      
+      if(!name || !email || !password){
+        alert("Please fill all fields");
+        return;
+      }
+      
+      try {
+        const res = await fetch("http://localhost:5000/api/auth/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ name, email, password })
+        });
+        
+        const data = await res.json();
+        
+        if(res.ok){
+          alert("Registration Successful");
+          window.location.href = "login.html";
+        } else {
+          alert(data.message);
+        }
+      } catch(err) {
+        console.warn("Backend server offline. Directing to login for Demo Mode...", err);
+        alert("Backend server is offline. Redirecting you to Login to use Offline Demo Mode.");
+        window.location.href = "login.html";
+      }
+    }
+  </script>
+</body>
+</html>
