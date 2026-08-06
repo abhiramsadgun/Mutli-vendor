@@ -44,14 +44,11 @@ return res.status(400).json({message:"Invalid Credentials"});
 
 user.loginCount +=1;
 user.lastLogin = new Date();
-
 await user.save();
-
 const token=jwt.sign(
 {id:user._id},
 process.env.JWT_SECRET
 );
-
 res.json({
 token,
 message:"Login Successful"
